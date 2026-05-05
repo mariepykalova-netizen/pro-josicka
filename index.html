@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pro tebe 💖</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  overflow: hidden;
+}
+
+/* Karty */
+.card {
+  background: rgba(255,255,255,0.9);
+  padding: 2rem;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 400px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+/* Skryté části */
+.hidden {
+  display: none;
+}
+
+/* Input */
+input {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-top: 1rem;
+}
+
+/* Button */
+button {
+  margin-top: 1rem;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  background: #ff6f91;
+  color: white;
+  cursor: pointer;
+}
+
+/* Obálka */
+.envelope {
+  font-size: 60px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.envelope:hover {
+  transform: scale(1.1);
+}
+
+/* Srdíčko animace */
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 24px;
+  animation: floatUp 5s linear forwards;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔒 LOGIN -->
+<div class="card" id="login">
+  <h2>LOG IN TWIN</h2>
+  <p>Zadej heslo pokud jsi Jošík, pokud nejsi Jošík, rozejdu se s tebou v úterý, běž pryč.</p>
+  <input type="password" id="password">
+  <br>
+  <button onclick="checkPassword()">let me iiin </button>
+</div>
+
+<!-- 💌 OBÁLKA -->
+<div class="card hidden" id="envelopeScreen">
+  <h2>nastraž oči, něco ti přišlo :o </h2>
+  <div class="envelope" onclick="openLetter()">✉️</div>
+</div>
+
+<!-- 📝 VZKAZ -->
+<div class="card hidden" id="letterScreen">
+  <h2 id="title"></h2>
+  <p id="message"></p>
+
+  <button onclick="sadMode()">klikni zde, pokud je ti stále smutno >_<</button>
+</div>
+
+<script>
+/* 🔑 HESLO */
+const correctPassword = "JOSIKjeKRAL69"; // ← ZMĚŇ!!!
+
+function checkPassword() {
+  const input = document.getElementById("password").value;
+  if (input === correctPassword) {
+    document.getElementById("login").classList.add("hidden");
+    document.getElementById("envelopeScreen").classList.remove("hidden");
+  } else {
+    alert("špatné heslo, nauč se psát >:(");
+  }
+}
+
+/* 💌 OTEVŘENÍ OBÁLKY */
+function openLetter() {
+  document.getElementById("envelopeScreen").classList.add("hidden");
+  document.getElementById("letterScreen").classList.remove("hidden");
+  loadMessage();
+}
+
+/* 📝 VZKAZY */
+const messages = [
+"Jsi to nejlepší, co mě kdy mohlo potkat...",
+  "Jsem na tebe hrdá. Vážně.<3",
+  "Tohle období zvládneš. A já jsem tady.",
+  "I když to teď není lehký, pořád jsi úžasnej.",
+  "Miluju tě. Každej den o trochu víc.",
+  "Nejsi na to sám. Nikdy."
+];
+
+const startDate = new Date("2026-05-05");
+
+function loadMessage() {
+  const today = new Date();
+  const diff = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+  const index = diff % messages.length;
+
+  document.getElementById("title").innerText = "zpráva dne pro pana Jošíka <3";
+  document.getElementById("message").innerText = messages[index];
+}
+
+/* 💗 SMUTNO BUTTON */
+function sadMode() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "💗";
+  heart.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 5000);
+
+  alert("Jsem tady pro tebe. Vždycky. Tak se zhluboka nadechni a pro další rozveselení mi napiš.<3");
+}
+</script>
+
+</body>
+</html>
